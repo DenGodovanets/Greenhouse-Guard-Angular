@@ -3,6 +3,12 @@
 
 .dashboard-container {
   @include flex-col-center;
+  &__loader {
+    @include flex-center;
+    justify-content: center;
+    padding-top: var(--p-xl);
+    gap: var(--p-lg);
+  }
 }
 
 .main-container {
@@ -11,4 +17,5 @@
   max-width: 1280px;
   margin: 0 auto;
   width: 100%;
+  gap: var(--p-2xl);
 }

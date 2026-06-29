@@ -1,11 +1,10 @@
 import { inject, Service, DestroyRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, scan, shareReplay, startWith, switchMap, map } from 'rxjs';
+import { Observable, scan, shareReplay, filter, switchMap, startWith, map } from 'rxjs';
 import { environment } from '@env';
-import { SensorReading } from '@core/models/sensor-reading.model';
-import { Anomaly } from '@core/models/anomaly.model';
-import { SignalRService } from '@core/services/signalr.service';
-import { ConnectionStatus } from '@core/enums/connection-status.enum';
+import { SensorReading, Anomaly } from '@models';
+import { SignalRService } from '@services';
+import { ConnectionStatus } from '@enums';
 
 @Service()
 export class SensorDataService {
@@ -21,7 +20,7 @@ export class SensorDataService {
   readonly currentReading$: Observable<SensorReading | null> = this.http
     .get<SensorReading>(this.readingLatestUrl)
     .pipe(
-      switchMap((initial) => this.signalR.sensorReading$.pipe(startWith(initial))),
+      switchMap((initial: SensorReading) => this.signalR.sensorReading$.pipe(startWith(initial))),
       shareReplay(1),
     );
 
@@ -29,14 +28,19 @@ export class SensorDataService {
     .get<Anomaly[]>(this.anomaliesUrl)
     .pipe(
       map((initial: Anomaly[]) => initial.slice(0, 10)),
-      switchMap((initial) =>
+      switchMap((initial: Anomaly[]) =>
         this.signalR.anomaly$.pipe(
-          scan((acc, anomaly) => [anomaly, ...acc].slice(0, 10), initial),
+          scan((acc: Anomaly[], anomaly: Anomaly) => [anomaly, ...acc].slice(0, 10), initial),
           startWith(initial),
         ),
       ),
       shareReplay(1),
     );
+
+  readonly readings$: Observable<SensorReading[]> = this.currentReading$.pipe(
+    filter(Boolean),
+    scan((acc, reading) => [reading, ...acc].slice(0, 20), [] as SensorReading[]),
+  );
 
   constructor() {
     this.signalR.connect();

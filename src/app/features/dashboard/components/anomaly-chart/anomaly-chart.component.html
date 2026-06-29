@@ -1,0 +1,24 @@
+@if (readings()?.length) {
+<div class="anomaly-chart">
+  <div class="anomaly-chart__header">
+    <h2 class="anomaly-chart__title">Readings Trends</h2>
+    <div class="anomaly-chart__tabs" role="group" aria-label="Select sensor">
+      @for (key of sensorKeys; track key) {
+        <button
+          class="anomaly-chart__tab"
+          [class.anomaly-chart__tab--active]="selectedSensor() === key"
+          (click)="selectedSensor.set(key)"
+        >
+          {{ sensorConfig[key].label }}
+        </button>
+      }
+    </div>
+  </div>
+  <canvas baseChart
+    [data]="chartData()"
+    type="line"
+    [options]="chartOptions">
+  </canvas>
+</div>
+}
+
