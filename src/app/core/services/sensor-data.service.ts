@@ -24,18 +24,16 @@ export class SensorDataService {
       shareReplay(1),
     );
 
-  readonly anomalies$: Observable<Anomaly[]> = this.http
-    .get<Anomaly[]>(this.anomaliesUrl)
-    .pipe(
-      map((initial: Anomaly[]) => initial.slice(0, 10)),
-      switchMap((initial: Anomaly[]) =>
-        this.signalR.anomaly$.pipe(
-          scan((acc: Anomaly[], anomaly: Anomaly) => [anomaly, ...acc].slice(0, 10), initial),
-          startWith(initial),
-        ),
+  readonly anomalies$: Observable<Anomaly[]> = this.http.get<Anomaly[]>(this.anomaliesUrl).pipe(
+    map((initial: Anomaly[]) => initial.slice(0, 10)),
+    switchMap((initial: Anomaly[]) =>
+      this.signalR.anomaly$.pipe(
+        scan((acc: Anomaly[], anomaly: Anomaly) => [anomaly, ...acc].slice(0, 10), initial),
+        startWith(initial),
       ),
-      shareReplay(1),
-    );
+    ),
+    shareReplay(1),
+  );
 
   readonly readings$: Observable<SensorReading[]> = this.currentReading$.pipe(
     filter(Boolean),

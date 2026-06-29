@@ -9,7 +9,10 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       console.error(`[HTTP ${error.status}] ${req.method} ${req.url}`, error.message);
-      snackBar.open(`[HTTP ${error.status}] ${req.method} ${req.url}: ${error.message}`, 'Close', { duration: 3000, verticalPosition: 'top', });
+      snackBar.open(`[HTTP ${error.status}] ${req.method} ${req.url}: ${error.message}`, 'Close', {
+        duration: 3000,
+        verticalPosition: 'top',
+      });
       return EMPTY;
     }),
   );

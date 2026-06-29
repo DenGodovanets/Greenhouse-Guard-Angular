@@ -2,8 +2,12 @@
 @use 'mixins' as *;
 
 @keyframes anomaly-flash {
-  0%   { background: rgba($color-red, 0.28); }
-  100% { background: rgba($color-red, 0.06); }
+  0% {
+    background: rgba($color-red, 0.28);
+  }
+  100% {
+    background: rgba($color-red, 0.06);
+  }
 }
 
 .anomaly-list {
@@ -30,7 +34,9 @@
     opacity: 0.45;
     padding: var(--p-xl) 0;
 
-    mat-icon { color: var(--color-green-base); }
+    mat-icon {
+      color: var(--color-green-base);
+    }
   }
 
   &__items {
@@ -49,8 +55,9 @@
   border-bottom: 1px solid rgba($color-red, 0.2);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &:last-child { 
-    border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 
   &--latest {
     box-shadow: inset 4px 0 0 var(--color-red-base);

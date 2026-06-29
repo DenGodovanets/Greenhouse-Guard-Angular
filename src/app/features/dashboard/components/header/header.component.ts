@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
@@ -9,11 +9,9 @@ import { LABELS } from '@constants';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatToolbarModule, MatIconModule, DatePipe],
 })
 export class HeaderComponent {
-
   readonly connectionStatus = input.required<ConnectionStatus | null>();
   readonly lastUpdatedAt = input.required<string | null>();
 

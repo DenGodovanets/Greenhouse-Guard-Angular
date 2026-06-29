@@ -11,8 +11,12 @@ import { SensorReading, Anomaly } from '@models';
 vi.mock('@microsoft/signalr', () => ({
   HubConnectionState: { Disconnected: 0, Connecting: 1, Connected: 2 },
   HubConnectionBuilder: class {
-    withUrl() { return this; }
-    withAutomaticReconnect() { return this; }
+    withUrl() {
+      return this;
+    }
+    withAutomaticReconnect() {
+      return this;
+    }
     build() {
       return {
         state: 0,
@@ -120,7 +124,7 @@ describe('SensorDataService', () => {
     sensorReading$.next(third);
 
     const latest = emissions[emissions.length - 1];
-    expect(latest[0]).toEqual(third);   // most recent is first
+    expect(latest[0]).toEqual(third); // most recent is first
     expect(latest[1]).toEqual(second);
     expect(latest[2]).toEqual(mockReading);
   });

@@ -30,21 +30,23 @@ export class ReadingsChartComponent {
           hour: '2-digit',
           minute: '2-digit',
           second: '2-digit',
-        })
+        }),
       ),
-      datasets: [{
-        label: `${config.label} (${config.unit})`,
-        data: data.map((r) => r[sensor]),
-        borderColor: config.color,
-        backgroundColor: `${config.color}1a`,
-        tension: 0.3,
-        fill: true,
-        pointRadius: 3,
-      }],
+      datasets: [
+        {
+          label: `${config.label} (${config.unit})`,
+          data: data.map((r) => r[sensor]),
+          borderColor: config.color,
+          backgroundColor: `${config.color}1a`,
+          tension: 0.3,
+          fill: true,
+          pointRadius: 3,
+        },
+      ],
     };
   });
 
-  readonly chartOptions: ChartConfiguration<'line'>['options'] = {
+  readonly chartOptions: Readonly<ChartConfiguration<'line'>['options']> = {
     responsive: true,
     maintainAspectRatio: true,
     plugins: {

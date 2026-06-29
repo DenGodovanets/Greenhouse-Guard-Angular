@@ -1,4 +1,4 @@
-import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,7 +11,6 @@ import { SENSOR_THRESHOLDS, LABELS } from '@constants';
   selector: 'app-sensor-grid',
   templateUrl: './sensor-grid.component.html',
   styleUrl: './sensor-grid.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DecimalPipe, MatCardModule, MatIconModule],
 })
 export class SensorGridComponent {
@@ -46,4 +45,3 @@ export class SensorGridComponent {
     return SensorStatus.Success;
   });
 }
-
