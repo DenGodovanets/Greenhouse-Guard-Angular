@@ -1,9 +1,9 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { SensorDataService } from '@core/services/sensor-data.service';
-import { HeaderComponent } from './components/header/header.component';
-import { SensorGridComponent } from './components/sensor-grid/sensor-grid.component';
-import { AnomalyListComponent } from './components/anomaly-list/anomaly-list.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SensorDataService } from '@services';
+import { ConnectionStatus } from '@enums';
+import { HeaderComponent, SensorGridComponent, AnomalyListComponent, ReadingsChartComponent } from '@components';
 import { map } from 'rxjs';
 
 @Component({
@@ -15,7 +15,9 @@ import { map } from 'rxjs';
     HeaderComponent,
     SensorGridComponent,
     AnomalyListComponent,
+    ReadingsChartComponent,
     AsyncPipe,
+    MatProgressSpinnerModule,
   ],
 })
 export class DashboardComponent {
@@ -25,5 +27,7 @@ export class DashboardComponent {
     map(reading => reading?.timestamp ?? null)
   );
   readonly anomalies$ = this.sensorDataService.anomalies$;
+  readonly readings$ = this.sensorDataService.readings$;
   readonly connectionStatus$ = this.sensorDataService.connectionStatus$;
+  readonly ConnectionStatus = ConnectionStatus;
 }

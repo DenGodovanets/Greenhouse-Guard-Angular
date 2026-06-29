@@ -4,9 +4,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@core/*":     ["./src/app/core/*"],
-      "@features/*": ["./src/app/features/*"],
-      "@env":        ["./src/environments/environment"]
+      "@enums":       ["./src/app/core/enums"],
+      "@services":    ["./src/app/core/services"],
+      "@models":      ["./src/app/core/models"],
+      "@constants":   ["./src/app/core/constants"],
+      "@interceptors":["./src/app/core/interceptors"],
+      "@features":    ["./src/app/features"],
+      "@components":  ["./src/app/features/dashboard/components"],
+      "@env":         ["./src/environments/environment"]
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -17,7 +22,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "types": ["node"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

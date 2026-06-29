@@ -4,9 +4,23 @@
     [lastUpdatedAt]="lastUpdatedAt$ | async"
   ></app-header>
 
+  @if (
+    (connectionStatus$ | async) === ConnectionStatus.Disconnected ||
+    (connectionStatus$ | async) === ConnectionStatus.Connecting
+  ) {
+    <div class="dashboard-container__loader">
+      <p>Connecting to server...</p>
+      <mat-spinner diameter="48" strokeWidth="4"></mat-spinner>
+    </div>
+  }
+
   <main class="main-container">
     <app-sensor-grid [currentReading]="currentReading$ | async"></app-sensor-grid>
 
     <app-anomaly-list [anomalies]="anomalies$ | async"></app-anomaly-list>
+
+    <app-readings-chart [readings]="readings$ | async"></app-readings-chart>
+
+
   </main>
 </div>

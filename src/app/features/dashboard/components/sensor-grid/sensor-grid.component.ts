@@ -3,10 +3,9 @@ import { DecimalPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SensorReading } from '@core/models/sensor-reading.model';
-import { SensorStatus } from '@core/enums/sensor-status.enum';
-import { SENSOR_THRESHOLDS } from '@core/constants/sensor-thresholds';
-import { LABELS } from '@core/constants/labels';
+import { SensorReading } from '@models';
+import { SensorStatus } from '@enums';
+import { SENSOR_THRESHOLDS, LABELS } from '@constants';
 
 @Component({
   selector: 'app-sensor-grid',

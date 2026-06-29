@@ -1,0 +1,55 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.anomaly-chart {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--p-lg);
+
+  &__header {
+    @include flex-center;
+    justify-content: space-between;
+    margin-bottom: var(--p-lg);
+
+    @include down(sm) {
+      @include flex-col-center;
+      gap: var(--p-sm);
+    }
+  }
+
+  &__title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: var(--p-xs);
+  }
+
+  &__tab {
+    padding: var(--p-xs) var(--p-md);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all 150ms ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    &--active {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: $color-white;
+      color: $color-white;
+      font-weight: 500;
+    }
+  }
+}

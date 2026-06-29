@@ -2,10 +2,8 @@ import { Service } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { environment } from '@env';
-import { SensorReading } from '@core/models/sensor-reading.model';
-import { Anomaly } from '@core/models/anomaly.model';
-import { ConnectionStatus } from '@core/enums/connection-status.enum';
-import { HubEvent } from '@core/enums/hub-events.enum';
+import { SensorReading, Anomaly } from '@models';
+import { ConnectionStatus, HubEvent } from '@enums';
 
 @Service()
 export class SignalRService {
