@@ -29,6 +29,4 @@ for (const file of resourceFiles) {
  * templateUrl/styleUrl resources for JIT compilation in vitest.
  */
 export const resolveResources = (): Promise<void> =>
-  resolveComponentResources((url) =>
-    Promise.resolve(new Response(resourceMap.get(url) ?? ''))
-  );
+  resolveComponentResources((url) => Promise.resolve(new Response(resourceMap.get(url) ?? '')));

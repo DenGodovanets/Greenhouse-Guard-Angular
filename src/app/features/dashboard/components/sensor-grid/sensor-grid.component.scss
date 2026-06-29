@@ -12,9 +12,15 @@
 }
 
 .sensor-card {
-  &--success { @include status-glow('green'); }
-  &--warning { @include status-glow('red', 'light'); }
-  &--danger  { @include status-glow('red'); }
+  &--success {
+    @include status-glow('green');
+  }
+  &--warning {
+    @include status-glow('red', 'light');
+  }
+  &--danger {
+    @include status-glow('red');
+  }
 
   &__icon {
     font-size: var(--icon-lg);

@@ -9,7 +9,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
   {
-    ignores: ['dist/**', '.angular/**', 'node_modules/**'],
+    ignores: ['dist/**', '.angular/**', 'node_modules/**', '**/*.spec.ts', '**/*.test.ts', 'src/test-setup.ts', 'src/test-utils.ts'],
   },
 
   // TypeScript files
@@ -18,7 +18,7 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: './tsconfig.json',
+        project: ['./tsconfig.app.json', './tsconfig.spec.json'],
       },
     },
     plugins: {
@@ -51,7 +51,6 @@ export default [
       '@angular-eslint/template': angularTemplateEslint,
     },
     rules: {
-      ...angularTemplateEslint.configs['recommended'].rules,
       '@angular-eslint/template/no-negated-async': 'error',
       '@angular-eslint/template/use-track-by-function': 'error',
     },

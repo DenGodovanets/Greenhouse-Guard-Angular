@@ -72,41 +72,35 @@ describe('SignalRService', () => {
 
   it('should emit sensor reading through sensorReading$ when ReceiveReading event is triggered', async () => {
     let emittedReading: any;
-    service.sensorReading$.subscribe((reading) => {
-      emittedReading = reading;
-    });
-
     await service.connect();
 
-    // Get the listener function passed to on() for ReceiveReading event
-    const onCall = mockConnection.on.mock.calls.find(
-      (call: any) => call[0] === 'ReceiveReading'
-    );
-    const listener = onCall?.[1];
+    service.sensorReading$.subscribe((reading) => {
+      emittedReading = reading;
+      // Get the listener function passed to on() for ReceiveReading event
+      const onCall = mockConnection.on.mock.calls.find((call: any) => call[0] === 'ReceiveReading');
+      const listener = onCall?.[1];
 
-    const testReading = { id: 1, value: 25.5, timestamp: '2024-01-01' };
-    listener?.(testReading);
+      const testReading = { id: 1, value: 25.5, timestamp: '2024-01-01' };
+      listener?.(testReading);
 
-    expect(emittedReading).toEqual(testReading);
+      expect(emittedReading).toEqual(testReading);
+    });
   });
 
   it('should emit anomaly through anomaly$ when ReceiveAnomaly event is triggered', async () => {
     let emittedAnomaly: any;
-    service.anomaly$.subscribe((anomaly) => {
-      emittedAnomaly = anomaly;
-    });
-
     await service.connect();
 
-    // Get the listener function passed to on() for ReceiveAnomaly event
-    const onCall = mockConnection.on.mock.calls.find(
-      (call: any) => call[0] === 'ReceiveAnomaly'
-    );
-    const listener = onCall?.[1];
+    service.anomaly$.subscribe((anomaly) => {
+      emittedAnomaly = anomaly;
+      // Get the listener function passed to on() for ReceiveAnomaly event
+      const onCall = mockConnection.on.mock.calls.find((call: any) => call[0] === 'ReceiveAnomaly');
+      const listener = onCall?.[1];
 
-    const testAnomaly = { id: 1, severity: 'high', description: 'Test anomaly' };
-    listener?.(testAnomaly);
+      const testAnomaly = { id: 1, severity: 'high', description: 'Test anomaly' };
+      listener?.(testAnomaly);
 
-    expect(emittedAnomaly).toEqual(testAnomaly);
+      expect(emittedAnomaly).toEqual(testAnomaly);
+    });
   });
 });

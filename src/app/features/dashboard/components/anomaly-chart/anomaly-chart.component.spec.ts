@@ -12,8 +12,22 @@ vi.mock('ng2-charts', () => ({ BaseChartDirective: class {} }));
 class StubBaseChartDirective {}
 
 const mockReadings: SensorReading[] = [
-  { id: '1', sequenceNumber: 1, timestamp: '2024-01-01T10:00:00Z', temperature: 22, humidity: 60, co2Ppm: 400 },
-  { id: '2', sequenceNumber: 2, timestamp: '2024-01-01T10:01:00Z', temperature: 25, humidity: 65, co2Ppm: 420 },
+  {
+    id: '1',
+    sequenceNumber: 1,
+    timestamp: '2024-01-01T10:00:00Z',
+    temperature: 22,
+    humidity: 60,
+    co2Ppm: 400,
+  },
+  {
+    id: '2',
+    sequenceNumber: 2,
+    timestamp: '2024-01-01T10:01:00Z',
+    temperature: 25,
+    humidity: 65,
+    co2Ppm: 420,
+  },
 ];
 
 describe('ReadingsChartComponent', () => {
@@ -24,12 +38,12 @@ describe('ReadingsChartComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReadingsChartComponent],
     })
-    .overrideComponent(ReadingsChartComponent, {
-      remove: { imports: [BaseChartDirective] },
-      add: { imports: [StubBaseChartDirective] },
-    })
-    .overrideTemplate(ReadingsChartComponent, '')
-    .compileComponents();
+      .overrideComponent(ReadingsChartComponent, {
+        remove: { imports: [BaseChartDirective] },
+        add: { imports: [StubBaseChartDirective] },
+      })
+      .overrideTemplate(ReadingsChartComponent, '')
+      .compileComponents();
 
     fixture = TestBed.createComponent(ReadingsChartComponent);
     fixture.detectChanges();
@@ -50,7 +64,9 @@ describe('ReadingsChartComponent', () => {
   });
 
   it('should expose all three sensor keys', () => {
-    expect(component.sensorKeys).toEqual(expect.arrayContaining(['temperature', 'humidity', 'co2Ppm']));
+    expect(component.sensorKeys).toEqual(
+      expect.arrayContaining(['temperature', 'humidity', 'co2Ppm']),
+    );
     expect(component.sensorKeys).toHaveLength(3);
   });
 

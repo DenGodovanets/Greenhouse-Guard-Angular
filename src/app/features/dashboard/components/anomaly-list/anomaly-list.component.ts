@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { DatePipe, DecimalPipe, TitleCasePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -9,11 +9,9 @@ import { LABELS } from '@constants';
   selector: 'app-anomaly-list',
   templateUrl: './anomaly-list.component.html',
   styleUrl: './anomaly-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DatePipe, DecimalPipe, TitleCasePipe, MatIconModule],
 })
 export class AnomalyListComponent {
-
   readonly labels = LABELS;
 
   readonly anomalies = input.required<Anomaly[] | null>();

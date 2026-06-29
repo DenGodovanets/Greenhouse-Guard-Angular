@@ -1,8 +1,5 @@
 <div class="dashboard-container">
-  <app-header
-    [connectionStatus]="connectionStatus$ | async"
-    [lastUpdatedAt]="lastUpdatedAt$ | async"
-  ></app-header>
+  <app-header [connectionStatus]="connectionStatus$ | async" [lastUpdatedAt]="lastUpdatedAt$ | async"></app-header>
 
   @if (
     (connectionStatus$ | async) === ConnectionStatus.Disconnected ||
@@ -20,7 +17,5 @@
     <app-anomaly-list [anomalies]="anomalies$ | async"></app-anomaly-list>
 
     <app-readings-chart [readings]="readings$ | async"></app-readings-chart>
-
-
   </main>
 </div>

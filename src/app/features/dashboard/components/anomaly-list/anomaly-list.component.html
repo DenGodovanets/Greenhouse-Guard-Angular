@@ -5,11 +5,11 @@
       {{ labels.anomalies.noAnomalies }}
     </p>
   } @else {
-          <h2 class="anomaly-list__title">
-    <mat-icon aria-hidden="true">warning_amber</mat-icon>
-    {{ labels.anomalies.sectionTitle }}
-  </h2>
-    
+    <h2 class="anomaly-list__title">
+      <mat-icon aria-hidden="true">warning_amber</mat-icon>
+      {{ labels.anomalies.sectionTitle }}
+    </h2>
+
     <ul class="anomaly-list__items" role="list">
       @for (anomaly of anomalies(); track anomaly.id; let isFirst = $first) {
         <li class="anomaly-item" [class.anomaly-item--latest]="isFirst" role="listitem">
@@ -21,9 +21,15 @@
               &mdash;
               {{ anomaly.value | number: '1.1-1' }}
               @switch (anomaly.sensorType.toLowerCase()) {
-                @case ('temperature') { &deg;C }
-                @case ('humidity') { % }
-                @default { ppm }
+                @case ('temperature') {
+                  &deg;C
+                }
+                @case ('humidity') {
+                  %
+                }
+                @default {
+                  ppm
+                }
               }
             </span>
 

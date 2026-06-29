@@ -7,13 +7,22 @@ import { DashboardComponent } from './dashboard.component';
 import { SensorDataService } from '@services';
 import { ConnectionStatus } from '@enums';
 import { SensorReading, Anomaly } from '@models';
-import { HeaderComponent, SensorGridComponent, AnomalyListComponent, ReadingsChartComponent } from '@components';
+import {
+  HeaderComponent,
+  SensorGridComponent,
+  AnomalyListComponent,
+  ReadingsChartComponent,
+} from '@components';
 
 vi.mock('@microsoft/signalr', () => ({
   HubConnectionState: { Disconnected: 0, Connecting: 1, Connected: 2 },
   HubConnectionBuilder: class {
-    withUrl() { return this; }
-    withAutomaticReconnect() { return this; }
+    withUrl() {
+      return this;
+    }
+    withAutomaticReconnect() {
+      return this;
+    }
     build() {
       return {
         state: 0,
@@ -64,11 +73,26 @@ describe('DashboardComponent', () => {
       imports: [DashboardComponent],
       providers: [{ provide: SensorDataService, useValue: mockSensorDataService }],
     })
-    .overrideComponent(DashboardComponent, {
-      remove: { imports: [HeaderComponent, SensorGridComponent, AnomalyListComponent, ReadingsChartComponent] },
-      add: { imports: [StubHeaderComponent, StubSensorGridComponent, StubAnomalyListComponent, StubReadingsChartComponent], schemas: [NO_ERRORS_SCHEMA] },
-    })
-    .compileComponents();
+      .overrideComponent(DashboardComponent, {
+        remove: {
+          imports: [
+            HeaderComponent,
+            SensorGridComponent,
+            AnomalyListComponent,
+            ReadingsChartComponent,
+          ],
+        },
+        add: {
+          imports: [
+            StubHeaderComponent,
+            StubSensorGridComponent,
+            StubAnomalyListComponent,
+            StubReadingsChartComponent,
+          ],
+          schemas: [NO_ERRORS_SCHEMA],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
     fixture.detectChanges();

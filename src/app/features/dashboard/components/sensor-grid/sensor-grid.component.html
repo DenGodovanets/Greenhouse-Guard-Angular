@@ -1,16 +1,16 @@
 <section class="sensor-grid" aria-label="Current sensor readings">
-
   <mat-card class="sensor-card" [class]="'sensor-card--' + tempStatus()" appearance="outlined">
     <mat-card-header>
       <mat-icon mat-card-avatar class="sensor-card__icon">thermostat</mat-icon>
       <mat-card-title>{{ labels.sensors.temperature.label }}</mat-card-title>
       <mat-card-subtitle>{{ labels.sensors.temperature.unitLabel }}</mat-card-subtitle>
-
     </mat-card-header>
     <mat-card-content class="sensor-card__body">
       <div
         class="sensor-card__value"
-        [attr.aria-label]="labels.sensors.temperature.label + ' ' + (currentReading()?.temperature ?? '--') + ' degrees Celsius'"
+        [attr.aria-label]="
+          labels.sensors.temperature.label + ' ' + (currentReading()?.temperature ?? '--') + ' degrees Celsius'
+        "
       >
         @if (currentReading(); as r) {
           <span class="sensor-card__number">{{ r.temperature | number: '1.1-1' }}</span>
@@ -63,5 +63,4 @@
       </div>
     </mat-card-content>
   </mat-card>
-
 </section>
