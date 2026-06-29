@@ -1,0 +1,67 @@
+<section class="sensor-grid" aria-label="Current sensor readings">
+
+  <mat-card class="sensor-card" [class]="'sensor-card--' + tempStatus()" appearance="outlined">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="sensor-card__icon">thermostat</mat-icon>
+      <mat-card-title>{{ labels.sensors.temperature.label }}</mat-card-title>
+      <mat-card-subtitle>{{ labels.sensors.temperature.unitLabel }}</mat-card-subtitle>
+
+    </mat-card-header>
+    <mat-card-content class="sensor-card__body">
+      <div
+        class="sensor-card__value"
+        [attr.aria-label]="labels.sensors.temperature.label + ' ' + (currentReading()?.temperature ?? '--') + ' degrees Celsius'"
+      >
+        @if (currentReading(); as r) {
+          <span class="sensor-card__number">{{ r.temperature | number: '1.1-1' }}</span>
+          <span class="sensor-card__unit" aria-hidden="true">{{ labels.sensors.temperature.unit }}</span>
+        } @else {
+          <span class="sensor-card__number sensor-card__number--placeholder">--</span>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="sensor-card" [class]="'sensor-card--' + humidityStatus()" appearance="outlined">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="sensor-card__icon" aria-hidden="true">water_drop</mat-icon>
+      <mat-card-title>{{ labels.sensors.humidity.label }}</mat-card-title>
+      <mat-card-subtitle>{{ labels.sensors.humidity.unitLabel }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="sensor-card__body">
+      <div
+        class="sensor-card__value"
+        [attr.aria-label]="labels.sensors.humidity.label + ' ' + (currentReading()?.humidity ?? '--') + ' percent'"
+      >
+        @if (currentReading(); as r) {
+          <span class="sensor-card__number">{{ r.humidity | number: '1.1-1' }}</span>
+          <span class="sensor-card__unit" aria-hidden="true">{{ labels.sensors.humidity.unit }}</span>
+        } @else {
+          <span class="sensor-card__number sensor-card__number--placeholder">--</span>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="sensor-card" [class]="'sensor-card--' + co2Status()" appearance="outlined">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="sensor-card__icon" aria-hidden="true">air</mat-icon>
+      <mat-card-title>{{ labels.sensors.co2.label }}</mat-card-title>
+      <mat-card-subtitle>{{ labels.sensors.co2.unitLabel }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="sensor-card__body">
+      <div
+        class="sensor-card__value"
+        [attr.aria-label]="labels.sensors.co2.label + ' ' + (currentReading()?.co2Ppm ?? '--') + ' parts per million'"
+      >
+        @if (currentReading(); as r) {
+          <span class="sensor-card__number">{{ r.co2Ppm }}</span>
+          <span class="sensor-card__unit" aria-hidden="true">{{ labels.sensors.co2.unit }}</span>
+        } @else {
+          <span class="sensor-card__number sensor-card__number--placeholder">--</span>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</section>

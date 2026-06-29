@@ -1,0 +1,48 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--p-lg);
+
+  @include down(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sensor-card {
+  &--success { @include status-glow('green'); }
+  &--warning { @include status-glow('red', 'light'); }
+  &--danger  { @include status-glow('red'); }
+
+  &__icon {
+    font-size: var(--icon-lg);
+  }
+
+  &__value {
+    display: flex;
+    align-items: baseline;
+    gap: var(--p-xs);
+  }
+
+  &__number {
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+
+    @include down(sm) {
+      font-size: var(--font-size-3xl);
+    }
+
+    &--placeholder {
+      opacity: 0.25;
+    }
+  }
+
+  &__unit {
+    font-size: var(--font-size-lg);
+    opacity: 0.55;
+  }
+}

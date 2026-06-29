@@ -1,0 +1,26 @@
+<mat-toolbar class="header">
+  <div class="header__brand">
+    <mat-icon class="header__brand-icon">eco</mat-icon>
+    <span class="header__brand-title">{{ labels.header.title }}</span>
+  </div>
+
+  <div class="header__status">
+    <span
+      class="header__status-badge"
+      [class.header__status-badge--live]="connectionStatus() === ConnectionStatus.Connected"
+    >
+      @if (connectionStatus() === ConnectionStatus.Connected) {
+        <span class="header__status-badge--dot"></span>
+        {{ labels.header.connection.live }}
+      } @else {
+        {{ labels.header.connection.offline }}
+      }
+    </span>
+
+    @if (lastUpdatedAt(); as ts) {
+      <time class="header__status-timestamp" [dateTime]="ts">
+        {{ ts | date: 'HH:mm:ss' }}
+      </time>
+    }
+  </div>
+</mat-toolbar>
