@@ -1,0 +1,87 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+@keyframes anomaly-flash {
+  0%   { background: rgba($color-red, 0.28); }
+  100% { background: rgba($color-red, 0.06); }
+}
+
+.anomaly-list {
+  &__title {
+    @include flex-center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: var(--p-xl) 0;
+    gap: var(--p-xs);
+    color: var(--color-red-light20);
+
+    mat-icon {
+      font-size: var(--font-size-lg);
+      width: var(--font-size-lg);
+      height: var(--font-size-lg);
+    }
+  }
+
+  &__empty {
+    @include flex-center;
+    justify-content: center;
+    opacity: 0.45;
+    padding: var(--p-xl) 0;
+
+    mat-icon { color: var(--color-green-base); }
+  }
+
+  &__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.anomaly-item {
+  @include flex-center;
+  align-items: center;
+  gap: var(--p-md);
+  padding: var(--p-md) var(--p-lg);
+  border-bottom: 1px solid rgba($color-red, 0.2);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:last-child { 
+    border-bottom: none; }
+
+  &--latest {
+    box-shadow: inset 4px 0 0 var(--color-red-base);
+    background: rgba($color-red, 0.06);
+    animation: anomaly-flash 1.5s ease-out forwards;
+  }
+
+  &__icon {
+    color: var(--color-red-base);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &__content {
+    @include flex-col-center;
+    gap: var(--p-xs);
+    flex: 1;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: var(--font-size-md);
+  }
+
+  &__reason {
+    @include flex-center;
+    font-size: var(--font-size-sm);
+    opacity: 0.65;
+
+    time {
+      opacity: 0.8;
+    }
+  }
+}

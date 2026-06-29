@@ -1,0 +1,12 @@
+<div class="dashboard-container">
+  <app-header
+    [connectionStatus]="connectionStatus$ | async"
+    [lastUpdatedAt]="lastUpdatedAt$ | async"
+  ></app-header>
+
+  <main class="main-container">
+    <app-sensor-grid [currentReading]="currentReading$ | async"></app-sensor-grid>
+
+    <app-anomaly-list [anomalies]="anomalies$ | async"></app-anomaly-list>
+  </main>
+</div>

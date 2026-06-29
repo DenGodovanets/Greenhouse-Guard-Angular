@@ -1,0 +1,39 @@
+<section class="anomaly-list">
+  <h2 class="anomaly-list__title">
+    <mat-icon aria-hidden="true">warning_amber</mat-icon>
+    {{ labels.anomalies.sectionTitle }}
+  </h2>
+
+  @if (anomalies()?.length === 0) {
+    <p class="anomaly-list__empty">
+      <mat-icon aria-hidden="true">check_circle</mat-icon>
+      {{ labels.anomalies.noAnomalies }}
+    </p>
+  } @else {
+    <ul class="anomaly-list__items" role="list">
+      @for (anomaly of anomalies(); track anomaly.id; let isFirst = $first) {
+        <li class="anomaly-item" [class.anomaly-item--latest]="isFirst" role="listitem">
+          <mat-icon class="anomaly-item__icon" aria-hidden="true">error_outline</mat-icon>
+
+          <div class="anomaly-item__content">
+            <span class="anomaly-item__title">
+              {{ anomaly.sensorType | titlecase }}
+              &mdash;
+              {{ anomaly.value | number: '1.1-1' }}
+              @switch (anomaly.sensorType.toLowerCase()) {
+                @case ('temperature') { &deg;C }
+                @case ('humidity') { % }
+                @default { ppm }
+              }
+            </span>
+
+            <div class="anomaly-item__reason">
+              <span>{{ anomaly.reason }}</span>
+              <time [dateTime]="anomaly.detectedAt">{{ anomaly.detectedAt | date: 'HH:mm:ss' }}</time>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>

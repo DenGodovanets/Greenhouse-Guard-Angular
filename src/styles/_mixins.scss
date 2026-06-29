@@ -1,0 +1,82 @@
+@use 'variables' as *;
+@use 'sass:map';
+@use 'sass:color';
+
+// ─── Responsive Breakpoints ───────────────────────────────────────────────
+
+// @include up(md) { ... }  → min-width: 768px
+@mixin up($size) {
+  @media (min-width: map.get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+// @include down(md) { ... } → max-width: 767px
+@mixin down($size) {
+  $breakpoint: map.get($breakpoints, $size);
+  @media (max-width: ($breakpoint - 0.01px)) {
+    @content;
+  }
+}
+
+// ─── Layout Mixins ────────────────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Flex column layout with centered items
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: space-between;
+}
+
+// Animated pulse dot
+@mixin pulse-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// Status Glow Mixins
+@mixin status-glow($color, $variant: null) {
+  @if $color == 'green' {
+    border-color: var(--color-green-base);
+    box-shadow:
+      0 0 28px rgba($color-green, 0.35),
+      inset 0 0 20px rgba($color-green, 0.08);
+  } @else if $color == 'red' {
+    @if $variant == 'light' {
+      border-color: var(--color-red-light20);
+      box-shadow:
+        0 0 28px rgba($color-red, 0.25),
+        inset 0 0 20px rgba($color-red, 0.06);
+    } @else {
+      border-color: var(--color-red-base);
+      box-shadow:
+        0 0 28px rgba($color-red, 0.35),
+        inset 0 0 20px rgba($color-red, 0.08);
+    }
+  }
+}
+
+// Pulse keyframe
+@mixin pulse-keyframes {
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.65);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.dashboard-container {
+  @include flex-col-center;
+}
+
+.main-container {
+  @include flex-col-center;
+  padding: var(--p-xl);
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}

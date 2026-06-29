@@ -1,0 +1,82 @@
+/**
+ * Color System
+ */
+
+@use 'sass:color';
+
+// ─── Breakpoints (Material Design Standard) ───────
+$breakpoints: (
+  sm: 600px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+// ─── Primary Colors  ───────────────────────────────
+$color-green: #4caf50;
+$color-orange: #ffb74d;
+$color-red: #ef5350;
+$color-dark: #0b0f0c;
+$color-white: #ffffff;
+
+:root {
+  /* Green Scale (derived from primary) */
+  --color-green-base: #{$color-green};
+
+  /* Red Scale (derived from primary) */
+  --color-red-light50: #{color.scale($color-red, $lightness: 50%)};
+  --color-red-light20: #{color.scale($color-red, $lightness: 20%)};
+  --color-red-base: #{$color-red};
+  --color-red-dark: #{color.scale($color-red, $lightness: -30%)};
+
+  /* Dark Scale (derived from primary) */
+  --color-dark-light50: #{color.scale($color-dark, $lightness: 50%)};
+  --color-dark-base: #{$color-dark};
+
+  /* Padding Scale */
+  --p-xs: 0.25rem;   
+  --p-sm: 0.5rem;    
+  --p-md: 1rem;      
+  --p-lg: 1.5rem;    
+  --p-xl: 3rem; 
+
+  /* Icon Scale */
+  --icon-sm: 16px;      
+  --icon-md: 24px;    
+  --icon-lg: 32px;
+
+  /* Font Size Scale */
+  --font-size-xs: 0.75rem; 
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;      
+  --font-size-lg: 1.125rem;  
+  --font-size-xl: 1.25rem;   
+  --font-size-2xl: 1.5rem;   
+  --font-size-3xl: 2rem;     
+  --font-size-4xl: 3rem;     
+
+  /* Border Radius Scale */
+  --radius-md: 16px;
+  --radius-lg: 20px;
+
+  /* Z-Index Stack */
+  --z-hide: -1;           /* Below stacking context */
+  --z-base: 0;            /* Default */
+  --z-dropdown: 10;       /* Dropdowns, popovers */
+  --z-sticky: 20;         /* Sticky headers, floating actions */
+  --z-modal: 100;         /* Modals, dialogs, overlays */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
