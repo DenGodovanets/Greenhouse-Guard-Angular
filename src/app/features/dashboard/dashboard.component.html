@@ -1,10 +1,8 @@
 <div class="dashboard-container">
   <app-header [connectionStatus]="connectionStatus$ | async" [lastUpdatedAt]="lastUpdatedAt$ | async"></app-header>
 
-  @if (
-    (connectionStatus$ | async) === ConnectionStatus.Disconnected ||
-    (connectionStatus$ | async) === ConnectionStatus.Connecting
-  ) {
+  @let status = connectionStatus$ | async;
+  @if (status === ConnectionStatus.Disconnected || status === ConnectionStatus.Connecting) {
     <div class="dashboard-container__loader">
       <p>Connecting to server...</p>
       <mat-spinner diameter="48" strokeWidth="4"></mat-spinner>

@@ -14,5 +14,5 @@ import { LABELS } from '@constants';
 export class AnomalyListComponent {
   readonly labels = LABELS;
 
-  readonly anomalies = input.required<Anomaly[] | null>();
+  readonly anomalies = input<Anomaly[] | null>(null);
 }

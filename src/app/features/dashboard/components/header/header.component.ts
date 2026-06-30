@@ -12,8 +12,8 @@ import { LABELS } from '@constants';
   imports: [MatToolbarModule, MatIconModule, DatePipe],
 })
 export class HeaderComponent {
-  readonly connectionStatus = input.required<ConnectionStatus | null>();
-  readonly lastUpdatedAt = input.required<string | null>();
+  readonly connectionStatus = input<ConnectionStatus | null>(null);
+  readonly lastUpdatedAt = input<string | null>(null);
 
   readonly ConnectionStatus = ConnectionStatus;
   readonly labels = LABELS;

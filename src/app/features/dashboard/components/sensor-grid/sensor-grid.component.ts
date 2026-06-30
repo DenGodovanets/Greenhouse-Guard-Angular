@@ -16,7 +16,7 @@ import { SENSOR_THRESHOLDS, LABELS } from '@constants';
 export class SensorGridComponent {
   readonly labels = LABELS;
 
-  readonly currentReading = input.required<SensorReading | null>();
+  readonly currentReading = input<SensorReading | null>(null);
 
   readonly tempStatus = computed<SensorStatus>(() => {
     const t = this.currentReading()?.temperature;

@@ -49,6 +49,7 @@ export class SignalRService {
 
     this.connection?.onclose(() => {
       this.connectionStatus$.next(ConnectionStatus.Disconnected);
+      setTimeout(() => this.startConnection(), 5_000);
     });
   }
 
