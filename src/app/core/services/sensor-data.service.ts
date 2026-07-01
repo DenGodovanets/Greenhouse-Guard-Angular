@@ -46,6 +46,7 @@ export class SensorDataService {
         startWith(initial),
       ),
     ),
+    shareReplay(1),
   );
 
   readonly readings$: Observable<SensorReading[]> = this.currentReading$.pipe(
