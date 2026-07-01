@@ -10,6 +10,7 @@ export class SignalRService {
   readonly sensorReading$ = new Subject<SensorReading>();
   readonly anomaly$ = new Subject<Anomaly>();
   readonly connectionStatus$ = new BehaviorSubject<ConnectionStatus>(ConnectionStatus.Disconnected);
+  readonly reconnectingTime = 10000;
 
   private connection: HubConnection | null = null;
 
@@ -26,7 +27,9 @@ export class SignalRService {
   private createConnection(): HubConnection {
     return new HubConnectionBuilder()
       .withUrl(environment.signalRHubUrl)
-      .withAutomaticReconnect()
+      .withAutomaticReconnect({
+        nextRetryDelayInMilliseconds: () => this.reconnectingTime,
+      })
       .build();
   }
 

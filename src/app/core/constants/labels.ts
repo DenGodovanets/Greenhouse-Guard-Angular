@@ -50,4 +50,19 @@ export const LABELS = {
     statusIndicator: 'Status indicator',
     anomalyIcon: 'Anomaly icon',
   },
+
+  // ── Submit Reading Dialog ─────────────────────────────────────────────────
+  submitReading: {
+    dialogTitle: 'Submit Sensor Reading',
+    closeDialogLabel: 'Close dialog',
+    temperatureLabel: 'Temperature',
+    humidityLabel: 'Humidity',
+    co2Label: 'CO₂',
+    successMessage: 'Reading submitted successfully!',
+    queuedMessage: 'Saved offline — will sync when back online.',
+    offlineMessage: 'Internet issue — data saved locally and will be sent on next submit.',
+    cancelButton: 'Cancel',
+    submitButton: 'Submit',
+    queueNotice: (count: number) => `${count} reading(s) pending sync`,
+  },
 } as const;

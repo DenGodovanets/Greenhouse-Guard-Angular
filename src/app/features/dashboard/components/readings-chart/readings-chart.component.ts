@@ -1,17 +1,42 @@
 import { Component, input, signal, computed } from '@angular/core';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartData } from 'chart.js';
+import { BaseChartDirective, provideCharts } from 'ng2-charts';
+import {
+  ChartConfiguration,
+  ChartData,
+  CategoryScale,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import { SensorReading } from '@models';
 import { SensorKey, SENSOR_CHART_CONFIG } from '@constants';
 
 @Component({
   selector: 'app-readings-chart',
-  templateUrl: './anomaly-chart.component.html',
-  styleUrl: './anomaly-chart.component.scss',
+  templateUrl: './readings-chart.component.html',
+  styleUrl: './readings-chart.component.scss',
   imports: [BaseChartDirective],
+  providers: [
+    provideCharts({
+      registerables: [
+        LineController,
+        LineElement,
+        PointElement,
+        CategoryScale,
+        LinearScale,
+        Filler,
+        Tooltip,
+        Legend,
+      ],
+    }),
+  ],
 })
 export class ReadingsChartComponent {
-  readonly readings = input.required<SensorReading[] | null>();
+  readonly readings = input<SensorReading[] | null>(null);
 
   readonly selectedSensor = signal<SensorKey>('temperature');
 
@@ -22,7 +47,7 @@ export class ReadingsChartComponent {
   readonly chartData = computed((): ChartData<'line'> => {
     const sensor = this.selectedSensor();
     const config = SENSOR_CHART_CONFIG[sensor];
-    const data = this.readings() ?? [];
+    const data = [...(this.readings() ?? [])].reverse();
 
     return {
       labels: data.map((r) =>
@@ -49,6 +74,7 @@ export class ReadingsChartComponent {
   readonly chartOptions: Readonly<ChartConfiguration<'line'>['options']> = {
     responsive: true,
     maintainAspectRatio: true,
+    animation: false,
     plugins: {
       legend: { display: false },
     },

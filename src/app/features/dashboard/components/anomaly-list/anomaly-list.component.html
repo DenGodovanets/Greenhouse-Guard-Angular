@@ -1,5 +1,5 @@
 <section class="anomaly-list">
-  @if (!anomalies()) {
+  @if (!anomalies()?.length) {
     <p class="anomaly-list__empty">
       <mat-icon aria-hidden="true">check_circle</mat-icon>
       {{ labels.anomalies.noAnomalies }}

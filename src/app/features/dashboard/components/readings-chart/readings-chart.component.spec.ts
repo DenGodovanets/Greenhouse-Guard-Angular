@@ -1,15 +1,7 @@
 import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Directive } from '@angular/core';
-import { BaseChartDirective } from 'ng2-charts';
-
-import { ReadingsChartComponent } from './anomaly-chart.component';
+import { ReadingsChartComponent } from './readings-chart.component';
 import { SensorReading } from '@models';
-
-vi.mock('ng2-charts', () => ({ BaseChartDirective: class {} }));
-
-@Directive({ selector: '[baseChart]' })
-class StubBaseChartDirective {}
 
 const mockReadings: SensorReading[] = [
   {
@@ -37,13 +29,7 @@ describe('ReadingsChartComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReadingsChartComponent],
-    })
-      .overrideComponent(ReadingsChartComponent, {
-        remove: { imports: [BaseChartDirective] },
-        add: { imports: [StubBaseChartDirective] },
-      })
-      .overrideTemplate(ReadingsChartComponent, '')
-      .compileComponents();
+    });
 
     fixture = TestBed.createComponent(ReadingsChartComponent);
     fixture.detectChanges();
@@ -73,7 +59,7 @@ describe('ReadingsChartComponent', () => {
   it('should compute chartData with temperature values by default', () => {
     vi.spyOn(component as any, 'readings').mockReturnValue(mockReadings);
     const data = component.chartData();
-    expect(data.datasets[0].data).toEqual([22, 25]);
+    expect(data.datasets[0].data).toEqual([25, 22]);
     expect(data.labels).toHaveLength(2);
   });
 
@@ -81,7 +67,7 @@ describe('ReadingsChartComponent', () => {
     vi.spyOn(component as any, 'readings').mockReturnValue(mockReadings);
     component.selectedSensor.set('humidity');
     const data = component.chartData();
-    expect(data.datasets[0].data).toEqual([60, 65]);
+    expect(data.datasets[0].data).toEqual([65, 60]);
     expect(data.datasets[0].label).toContain('Humidity');
   });
 

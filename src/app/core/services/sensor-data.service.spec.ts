@@ -8,36 +8,6 @@ import { SignalRService } from './signalr.service';
 import { ConnectionStatus } from '@enums';
 import { SensorReading, Anomaly } from '@models';
 
-vi.mock('@microsoft/signalr', () => ({
-  HubConnectionState: { Disconnected: 0, Connecting: 1, Connected: 2 },
-  HubConnectionBuilder: class {
-    withUrl() {
-      return this;
-    }
-    withAutomaticReconnect() {
-      return this;
-    }
-    build() {
-      return {
-        state: 0,
-        start: vi.fn(),
-        stop: vi.fn(),
-        on: vi.fn(),
-        onreconnecting: vi.fn(),
-        onreconnected: vi.fn(),
-        onclose: vi.fn(),
-      };
-    }
-  },
-}));
-
-vi.mock('@env', () => ({
-  environment: {
-    apiUrl: 'http://localhost:5000/api',
-    signalRHubUrl: 'http://localhost:5000/sensorchannel',
-  },
-}));
-
 const mockReading: SensorReading = {
   id: '1',
   sequenceNumber: 1,
