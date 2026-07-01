@@ -1,6 +1,16 @@
 import { inject, Service, DestroyRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, scan, shareReplay, filter, switchMap, startWith, map } from 'rxjs';
+import {
+  Observable,
+  scan,
+  shareReplay,
+  filter,
+  switchMap,
+  startWith,
+  map,
+  catchError,
+  of,
+} from 'rxjs';
 import { environment } from '@env';
 import { SensorReading, Anomaly } from '@models';
 import { SignalRService } from '@services';
@@ -20,11 +30,15 @@ export class SensorDataService {
   readonly currentReading$: Observable<SensorReading | null> = this.http
     .get<SensorReading>(this.readingLatestUrl)
     .pipe(
-      switchMap((initial: SensorReading) => this.signalR.sensorReading$.pipe(startWith(initial))),
+      catchError(() => of(null)),
+      switchMap((initial: SensorReading | null) =>
+        this.signalR.sensorReading$.pipe(startWith(initial)),
+      ),
       shareReplay(1),
     );
 
   readonly anomalies$: Observable<Anomaly[]> = this.http.get<Anomaly[]>(this.anomaliesUrl).pipe(
+    catchError(() => of([])),
     map((initial: Anomaly[]) => initial.slice(0, 10)),
     switchMap((initial: Anomaly[]) =>
       this.signalR.anomaly$.pipe(
@@ -32,7 +46,6 @@ export class SensorDataService {
         startWith(initial),
       ),
     ),
-    shareReplay(1),
   );
 
   readonly readings$: Observable<SensorReading[]> = this.currentReading$.pipe(

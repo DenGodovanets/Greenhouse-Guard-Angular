@@ -17,8 +17,8 @@ import { SensorKey, SENSOR_CHART_CONFIG } from '@constants';
 
 @Component({
   selector: 'app-readings-chart',
-  templateUrl: './anomaly-chart.component.html',
-  styleUrl: './anomaly-chart.component.scss',
+  templateUrl: './readings-chart.component.html',
+  styleUrl: './readings-chart.component.scss',
   imports: [BaseChartDirective],
   providers: [
     provideCharts({

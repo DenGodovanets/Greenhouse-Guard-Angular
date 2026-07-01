@@ -5,6 +5,15 @@
   </div>
 
   <div class="header__status">
+    <button
+      mat-icon-button
+      class="header__status-submit"
+      aria-label="Submit sensor reading"
+      (click)="openSubmitDialog()"
+    >
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+
     <span
       class="header__status-badge"
       [class.header__status-badge--live]="connectionStatus() === ConnectionStatus.Connected"

@@ -1,6 +1,6 @@
 import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ReadingsChartComponent } from './anomaly-chart.component';
+import { ReadingsChartComponent } from './readings-chart.component';
 import { SensorReading } from '@models';
 
 const mockReadings: SensorReading[] = [
@@ -29,10 +29,7 @@ describe('ReadingsChartComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReadingsChartComponent],
-    })
-      // .overrideComponent(ReadingsChartComponent, { remove: { imports: [BaseChartDirective] } })
-      // .overrideTemplate(ReadingsChartComponent, '')
-      // .compileComponents();
+    });
 
     fixture = TestBed.createComponent(ReadingsChartComponent);
     fixture.detectChanges();

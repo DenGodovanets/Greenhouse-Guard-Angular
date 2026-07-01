@@ -1,0 +1,64 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.submit-dialog {
+  &__title {
+    @include flex-center;
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  &__close {
+    margin-left: auto;
+  }
+
+  &__content {
+    padding-top: var(--p-sm) !important;
+  }
+
+  &__queue-notice {
+    @include flex-center;
+    justify-content: flex-start;
+    gap: var(--p-sm);
+    padding: var(--p-sm) var(--p-md);
+    border-radius: var(--radius-md);
+    border: 1px solid $color-orange;
+    color: $color-orange;
+    margin-bottom: var(--p-md);
+    font-size: var(--font-size-sm);
+  }
+
+  &__result {
+    @include flex-center;
+    justify-content: flex-start;
+    gap: var(--p-sm);
+    padding: var(--p-sm) var(--p-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--p-md);
+    font-size: var(--font-size-sm);
+
+    &--success {
+      border: 1px solid var(--color-green-base);
+      color: var(--color-green-base);
+    }
+
+    &--queued {
+      border: 1px solid $color-orange;
+      color: $color-orange;
+    }
+  }
+}
+
+.submit-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--p-sm);
+
+  &__field {
+    width: 100%;
+  }
+
+  &__suffix {
+    padding-right: var(--p-md);
+  }
+}

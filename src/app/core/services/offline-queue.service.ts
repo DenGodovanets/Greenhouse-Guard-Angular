@@ -1,64 +1,40 @@
-// import { inject, Service, signal } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-// import { firstValueFrom } from 'rxjs';
+import { Service, signal } from '@angular/core';
+import { SubmittableSensorReading, QueuedReading } from '@models';
+import { OFFLINE_QUEUE_STORAGE_KEY } from '@constants';
 
-// export interface QueuedRequest {
-//   url: string;
-//   body: unknown;
-//   queuedAt: string;
-// }
+const STORAGE_KEY = OFFLINE_QUEUE_STORAGE_KEY;
 
-// const STORAGE_KEY = 'greenhouse_offline_queue';
+@Service()
+export class OfflineQueueService {
+  private queue: QueuedReading[] = this.load();
+  readonly pendingCount = signal(this.queue.length);
 
-// @Service()
-// export class OfflineQueueService {
-//   private readonly http = inject(HttpClient);
+  enqueue(reading: SubmittableSensorReading): void {
+    this.queue.push({ reading, queuedAt: new Date().toISOString() });
+    this.persist();
+  }
 
-//   readonly pendingCount = signal(this.load().length);
+  peek(): QueuedReading | null {
+    return this.queue[0] ?? null;
+  }
 
-//   enqueue(url: string, body: unknown): void {
-//     const queue = this.load();
-//     queue.push({ url, body, queuedAt: new Date().toISOString() });
-//     this.persist(queue);
-//     this.pendingCount.set(queue.length);
-//     console.log(`[OfflineQueue] Enqueued request to ${url}. Pending: ${queue.length}`);
-//   }
+  dequeue(): QueuedReading | null {
+    const item = this.queue.shift() ?? null;
+    this.persist();
+    return item;
+  }
 
-//   async flush(): Promise<void> {
-//     const queue = this.load();
-//     if (queue.length === 0) return;
+  getAll(): QueuedReading[] {
+    return [...this.queue];
+  }
 
-//     console.log(`[OfflineQueue] Flushing ${queue.length} queued request(s)…`);
+  private load(): QueuedReading[] {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as QueuedReading[]) : [];
+  }
 
-//     const remaining: QueuedRequest[] = [];
-
-//     for (const request of queue) {
-//       try {
-//         await firstValueFrom(this.http.post(request.url, request.body));
-//         console.log(`[OfflineQueue] Replayed request to ${request.url}`);
-//       } catch {
-//         remaining.push(request);
-//       }
-//     }
-
-//     this.persist(remaining);
-//     this.pendingCount.set(remaining.length);
-//   }
-
-//   private load(): QueuedRequest[] {
-//     try {
-//       const raw = localStorage.getItem(STORAGE_KEY);
-//       return raw ? (JSON.parse(raw) as QueuedRequest[]) : [];
-//     } catch {
-//       return [];
-//     }
-//   }
-
-//   private persist(queue: QueuedRequest[]): void {
-//     try {
-//       localStorage.setItem(STORAGE_KEY, JSON.stringify(queue));
-//     } catch {
-//       // localStorage unavailable or quota exceeded
-//     }
-//   }
-// }
+  private persist(): void {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.queue));
+    this.pendingCount.set(this.queue.length);
+  }
+}
